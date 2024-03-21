@@ -7,6 +7,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-EXPOSE 5000
+# Because of port 5000 is reserved by OSX
+EXPOSE 5100
 
 CMD [ "python", "app.py" ]

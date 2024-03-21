@@ -1,0 +1,20 @@
+version: "3.4"
+x-healthcheck-defaults: &healthcheck_defaults
+  interval: "30s"
+  timeout: "15s"
+  retries: 2
+  start_period: 10s
+
+services:
+  app:
+    container_name: App
+    build: ./
+    volumes:
+      - .:/app:delegated
+    env_file:
+      - .env
+    ports:
+      - 5100:5100
+    healthcheck:
+      <<: *healthcheck_defaults
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:5000/health"]
